@@ -10,8 +10,7 @@ import moment from 'moment-timezone';
 global.botnumber = ""
 //يمكنك إضافة رقمك للتحكم في البوت أو إن طلب شخص رقمك من البوت
 global.owner = [
-  ['212660131536', 'Hardy', true],
-  
+  ['212660131536', 'Hardy', true]
 ];
 
 global.suittag = ['212660131536'];
@@ -29,12 +28,12 @@ global.waittt = '> سوف يتم رسم صورتك بعد قليل ...';
 global.rwait = '⏳';
 global.done = '✅';
 
-global.imagen1 = fs.readFileSync('./Menu2.jpg');
-global.imagen2 = fs.readFileSync('./src/nuevobot.jpg');
-global.imagen3 = fs.readFileSync('./src/Pre Bot Publi.png');
-global.imagen4 = fs.readFileSync('./Menu.png');
-global.imagen5 = fs.readFileSync('./src/+18.jpg');
-global.imagen6 = fs.readFileSync('./Menu3.png');
+global.imagen1 = fs.readFileSync('./src/logo.jpg');
+global.imagen2 = fs.readFileSync('./src/logo.jpg');
+global.imagen3 = fs.readFileSync('./src/logo.png');
+global.imagen4 = fs.readFileSync('./src/logo.png');
+global.imagen5 = fs.readFileSync('./src/logo.jpg');
+global.imagen6 = fs.readFileSync('./src/logo.png');
 
 global.mods = [];
 

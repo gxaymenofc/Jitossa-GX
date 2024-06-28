@@ -16,7 +16,7 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
 
   try {
     const result = await fg.fbdl(args[0]);
-    const tex = `> IG HARDY \n instagram.com/hg_hardy`
+    const tex = `> fb hardy \n instagram.com/hg_hardy`
 
     const response = await fetch(result.videoUrl)
     const arrayBuffer = await response.arrayBuffer()

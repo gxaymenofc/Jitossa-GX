@@ -15,7 +15,7 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
 
   try {
     const result = await fg.fbdl(args[0]);
-    const tex = `> ғʙ2 ᴊɪᴛᴏssᴀ`
+    const tex = `> fb2 hardy`
 
     const response = await fetch(result.videoUrl)
     const arrayBuffer = await response.arrayBuffer()

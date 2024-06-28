@@ -10,12 +10,12 @@ import moment from 'moment-timezone';
 global.botnumber = ""
 //يمكنك إضافة رقمك للتحكم في البوت أو إن طلب شخص رقمك من البوت
 global.owner = [
-  ['212670941551', 'Omar', true],
+  ['212660131536', 'Hardy', true],
   
 ];
 
-global.suittag = ['212670941551'];
-global.prems = ['212670941551'];
+global.suittag = ['212660131536'];
+global.prems = ['212660131536'];
 
 global.packname = 'JITOSSA';
 global.author = '';
@@ -50,8 +50,8 @@ global.tiempo = d.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', s
 global.wm2 = `${dia} ${fecha}\nJITOSSA`;
 global.gt = 'JITOSSA';
 global.mysticbot = 'JITOSSA';
-global.md = 'https://instagram.com/ovmar_1';
-global.mysticbot = 'https://instagram.com/ovmar_1';
+global.md = 'https://instagram.com/hg_hardy';
+global.mysticbot = 'https://instagram.com/hg_hardy';
 global.nomorown = '212670941551';
 global.pdoc = ['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/msword', 'application/pdf', 'text/rtf'];
 global.cmenut = '❖––––––『';

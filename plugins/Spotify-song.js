@@ -18,12 +18,12 @@ let handler = async (m, { conn, text }) => {
         mimetype: 'audio/mpeg',
         ptt: true,
         waveform:  [100, 0, 100, 0, 100, 0, 100],
-        fileName: "JITOSSA.mp3",
+        fileName: "HARDY.mp3",
     
         contextInfo: {
 \n\مثال           mentionedJid: [m.sender],
           externalAdReply: {
-            title: "SONG'S JOTOSSA",
+            title: "SONG'S HARDY",
             body: `Katsm3 L: ${text}`,
             thumbnailUrl: pp,
             sourceUrl: null,

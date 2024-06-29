@@ -1,7 +1,7 @@
 
 
 
-/* import yts from 'yt-search'
+import yts from 'yt-search'
 import fs from 'fs'
 
 let handler = async (m, {conn, text }) => {
@@ -24,7 +24,7 @@ handler.help = ['yts <query>']
 handler.tags = ['search']
 handler.command = /^yts(earch)?$/i
 
-export default handler*/
+export default handler
 /*
 
 - Agradecimiento a la comunidad de "WSApp • Developers"
@@ -36,6 +36,7 @@ export default handler*/
  * https://github.com/BrunoSobrino
 
 */
+/* 
 import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys'
 import yts from 'yt-search';
 import fs from 'fs';

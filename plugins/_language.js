@@ -32,7 +32,7 @@ const handler = async (m, { args, usedPrefix, command, isAdmin }) => {
                 global.db.data.users[m.sender].language = 'fr'
                 m.reply(`*[ ✅ ] Hardy - Bot*\n\n*—◉* *_Langue définie en Français 🇫🇷_*`)
 
-            }else if (sigla === 'ar') {
+            }else if (sigla === 'ar' || sigla === 'es') {
                 global.db.data.users[m.sender].language = 'ar'
                 m.reply("*[ ✅ ] Hardy - Bot*\n\n*—◉* اللغة مضبوطة على العربية 🇸🇦")
 

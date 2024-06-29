@@ -35,8 +35,8 @@ export default handler
 - Adaptacion de imagen en tipo lista, codigo y funcionamiento por BrunoSobrino
  * https://github.com/BrunoSobrino
 
-*/
-/* 
+
+
 import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys'
 import yts from 'yt-search';
 import fs from 'fs';
@@ -129,3 +129,4 @@ handler.help = ['ytsearch <texto>'];
 handler.tags = ['search'];
 handler.command = /^(ytsearch|yts|searchyt|buscaryt|videosearch|audiosearch)$/i;
 export default handler;
+*/

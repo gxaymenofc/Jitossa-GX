@@ -74,8 +74,8 @@ ${tradutor.texto1[1]}
                 global.db.data.chats[m.chat].language = 'fr';
 
                 m.reply(`*[ ✅ ] Configuration du groupe*\n\n*—◉* *_Langue définie en Français 🇫🇷_*`)
-            } else if (sigla === 'ar') {
-                global.db.data.chats[m.chat].language = 'ar';
+            } else if (sigla === 'ar' || sigla === 'es') {
+                global.db.data.chats[m.chat].language = 'es';
 
                 m.reply("[ ✅ ] تكوين المجموعة\n\n*—◉* اللغة مضبوطة على العربية 🇸🇦")
             } else  {

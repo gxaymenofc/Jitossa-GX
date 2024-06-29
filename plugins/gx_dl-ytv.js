@@ -1,66 +1,114 @@
+import {youtubedl, youtubedlv2} from '@bochilteam/scraper';
+import fetch from 'node-fetch';
+import yts from 'yt-search';
 import ytdl from 'ytdl-core';
-import fs from 'fs';
-import os from 'os';
+import axios from 'axios'
+import {bestFormat, getUrlDl} from '../lib/y2dl.js';
 
-let limit = 500;
-let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) => {
-  if (!args || !args[0]) throw `التحميـل الفيديوهـات من يـوتوب \n\n مثـال :\n${usedPrefix + command} https://youtu.be/Xb1-Oh1_msQ`;
-  if (!args[0].match(/youtu/gi)) throw `تأكد من أن الرابط موجود على YouTube`;
+const handler = async (m, {text, conn, args, usedPrefix, command}) => {
+  const datas = global
+  const idioma = datas.db.data.users[m.sender].language
+  const _translate = JSON.parse(fs.readFileSync(`./language/${idioma}.json`))
+  const tradutor = _translate.plugins.downloader_yta
 
-  let chat = global.db.data.chats[m.chat];
-  m.react(rwait);
+  if (!args[0]) throw tradutor.texto8;  
+  let enviando;
+  if (enviando) return  
+      enviando = true      
+  let youtubeLink = '';
+  if (args[0].includes('you')) {
+    youtubeLink = args[0];
+  } else {
+    const index = parseInt(args[0]) - 1;
+    if (index >= 0) {
+      if (Array.isArray(global.videoList) && global.videoList.length > 0) {
+        const matchingItem = global.videoList.find((item) => item.from === m.sender);
+        if (matchingItem) {
+          if (index < matchingItem.urls.length) {
+            youtubeLink = matchingItem.urls[index];
+          } else {
+            throw `${tradutor.texto1} ${matchingItem.urls.length}*`;
+          }
+        } else {
+          throw `${tradutor.texto2[0]} (${usedPrefix + command} ${tradutor.texto2[1]} ${usedPrefix}playlist <texto>*`;
+        }
+      } else {
+        throw `${tradutor.texto3[0]} (${usedPrefix + command} ${tradutor.texto3[1]} ${usedPrefix}playlist <texto>*`;
+      }
+    }
+  }
+  const { key } = await conn.sendMessage(m.chat, {text: tradutor.texto4}, {quoted: m});
   try {
-    const info = await ytdl.getInfo(args[0]);
-    const format = ytdl.chooseFormat(info.formats, { quality: 'highest' });
-    if (!format) {
-      throw new Error('لم يتم العثور على صيغ صالحة');
+    const formats = await bestFormat(youtubeLink, 'audio');
+    const dl_url = await getUrlDl(formats.url);
+    const buff = await getBuffer(dl_url.download);    
+    const yt_1 = await youtubedl(youtubeLink).catch(async (_) => await youtubedlv2(youtubeLink));
+    const ttl_1 = `${yt_1?.title ? yt_1.title : 'Tu_audio_descargado'}`;
+    const fileSizeInBytes = buff.byteLength;
+    const fileSizeInKB = fileSizeInBytes / 1024;
+    const fileSizeInMB = fileSizeInKB / 1024;
+    const roundedFileSizeInMB = fileSizeInMB.toFixed(2);
+   if (fileSizeInMB > 50) {
+    await conn.sendMessage(m.chat, {document: buff, caption: `${tradutor.texto5[0]} ${ttl_1}\n${tradutor.texto5[1]} ${roundedFileSizeInMB} MB`, fileName: ttl_1 + '.mp3', mimetype: 'audio/mpeg'}, {quoted: m});
+    await conn.sendMessage(m.chat, {text: `${tradutor.texto5[2]} ${roundedFileSizeInMB} ${tradutor.texto5[3]} ${ttl_1}`, edit: key}, {quoted: m});
+    enviando = false
+   } else {
+    await conn.sendMessage(m.chat, {audio: buff, caption: `${tradutor.texto5[0]} ${ttl_1}\n${tradutor.texto5[1]} ${roundedFileSizeInMB} MB`, fileName: ttl_1 + '.mp3', mimetype: 'audio/mpeg'}, {quoted: m});
+    await conn.sendMessage(m.chat, {text: `${tradutor.texto5[4]}`, edit: key}, {quoted: m});
+    enviando = false   
+   }    
+  } catch {
+    console.log('noooooo')
+  try {
+    const q = '128kbps';
+    const v = youtubeLink;
+    const yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v));
+    const dl_url = await yt.audio[q].download();
+    const ttl = await yt.title;
+    const size = await yt.audio[q].fileSizeH;
+    await conn.sendFile(m.chat, dl_url, ttl + '.mp3', null, m, false, {mimetype: 'audio/mpeg'});
+    await conn.sendMessage(m.chat, {text: `${tradutor.texto5[4]}`, edit: key}, {quoted: m});
+  } catch {
+    try {
+      const lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${lolkeysapi}&url=${youtubeLink}`);
+      const lolh = await lolhuman.json();
+      const n = lolh.result.title || 'error';
+      await conn.sendMessage(m.chat, {audio: {url: lolh.result.link}, fileName: `${n}.mp3`, mimetype: 'audio/mpeg'}, {quoted: m});
+      await conn.sendMessage(m.chat, {text: `${tradutor.texto5[4]}`, edit: key}, {quoted: m});
+    } catch {
+      try {
+        const searchh = await yts(youtubeLink);
+        const __res = searchh.all.map((v) => v).filter((v) => v.type == 'video');
+        const infoo = await ytdl.getInfo('https://youtu.be/' + __res[0].videoId);
+        const ress = await ytdl.chooseFormat(infoo.formats, {filter: 'audioonly'});
+        conn.sendMessage(m.chat, {audio: {url: ress.url}, fileName: __res[0].title + '.mp3', mimetype: 'audio/mpeg'}, {quoted: m});
+        await conn.sendMessage(m.chat, {text: `${tradutor.texto5[4]}`, edit: key}, {quoted: m});
+      } catch {
+        await conn.sendMessage(m.chat, {text: tradutor.texto6, edit: key}, {quoted: m});
+        throw tradutor.texto7;
+      }
     }
+  }
+}};
+handler.command = /^(audio|fgmp3|dlmp3|getaud|yt(a|mp3))$/i;
+export default handler
 
-    if (format.contentLength / (1024 * 1024) >= limit) {
-      return m.reply(`≡ *ABHU YTDL*\n\n▢ *⚖️الحجم*: ${format.contentLength / (1024 * 1024).toFixed(2)}MB\n▢ *🎞️الجودة*: ${format.qualityLabel}\n\n▢ الملف يتجاوز الحد المسموح *+${limit} MB*`);
-    }
-
-    const tmpDir = os.tmpdir();
-    const fileName = `${tmpDir}/${info.videoDetails.videoId}.mp4`;
-
-    const writableStream = fs.createWriteStream(fileName);
-    ytdl(args[0], {
-      quality: format.itag,
-    }).pipe(writableStream);
-
-    writableStream.on('finish', () => {
-      conn.sendFile(
-        m.chat,
-        fs.readFileSync(fileName),
-        `${info.videoDetails.videoId}.mp4`,
-        ` 
-	  ⬡ العنوان: ${info.videoDetails.title}
-	  ⬡ المدة: ${info.videoDetails.lengthSeconds} ثانية
-	  ⬡ المشاهدات: ${info.videoDetails.viewCount}
-	  ⬡ التحميل: ${info.videoDetails.publishDate}
-	\n > inatagram.com/ovmar_1`,
-        m,
-        false,
-        { asDocument: chat.useDocument }
-      );
-
-      fs.unlinkSync(fileName); // حذف الملف المؤقت
-      m.react(done);
+const getBuffer = async (url, options) => {
+  try {
+    options ? options : {};
+    const res = await axios({
+      method: 'get',
+      url,
+      headers: {
+        'DNT': 1,
+        'Upgrade-Insecure-Request': 1,
+      },
+      ...options,
+      responseType: 'arraybuffer',
     });
 
-    writableStream.on('error', (error) => {
-      console.error(error);
-      m.reply('*حدث خطأ أثناء محاولة تنزيل الفيديو. يرجى المحاولة مرة أخرى.*');
-    });
-  } catch (error) {
-    console.error(er>ror);
-    m.reply('*حدث خطأ أثناء معالجة الفيديو. يرجى المحاولة مرة أخرى.*');
+    return res.data;
+  } catch (e) {
+    console.log(`Error : ${e}`);
   }
 };
-
-handler.help = ['ytmp4 <رابط-يوتيوب>'];
-handler.tags = ['downloadet'];
-handler.command = ['ytmp4', 'ytv'];
-handler.diamond = false;
-
-export default handler;

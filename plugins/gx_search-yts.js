@@ -82,7 +82,7 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
                 },
                 {
                   header: video.title,
-                  title: ${video.url},
+                  title: video.url,
                   description: 'MP3 DOCUMENT',
                   id: `.ytadoc ${video.url}`
                 },

@@ -78,25 +78,25 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
                   header: video.title,
                   title: video.author.name,
                   description: 'MP3',
-                  id: `${prefijo}ytmp3 ${video.url}`
+                  id: `.yta ${video.url}`
                 },
                 {
                   header: video.title,
                   title: video.author.name,
                   description: 'MP3 DOCUMENT',
-                  id: `${prefijo}ytmp3doc ${video.url}`
+                  id: `.ytadoc ${video.url}`
                 },
                   {
                   header: video.title,
                   title: video.author.name,
                   description: 'MP4',
-                  id: `${prefijo}ytmp4 ${video.url}`
+                  id: `.ytv ${video.url}`
                 },
                 {
                   header: video.title,
                   title: video.author.name,
                   description: 'MP4 DOCUMENT',
-                  id: `${prefijo}ytmp4doc ${video.url}`
+                  id: `.ytvdoc ${video.url}`
                 }
               ]
             }))

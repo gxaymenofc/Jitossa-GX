@@ -12,7 +12,7 @@ global.botnumber = ""
 global.owner = [
   ['212660131536', 'Hardy', true]
 ];
-
+global.idioma = 'en';
 global.suittag = ['212660131536'];
 global.prems = ['212660131536'];
 
